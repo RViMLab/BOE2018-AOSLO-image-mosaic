@@ -1,0 +1,4 @@
+*.pyc
+.yaml
+.idea/
+create_recent_montage.jsx
