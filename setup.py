@@ -17,8 +17,8 @@ setup(
 		'Pillow',
 		'argparse',
 		'xlrd',
-		'opencv-python==3.3.0.10',
-                'pyyaml'
+		'opencv-python>=3.3.0.10',
+        'pyyaml'
 		],
 	entry_points = {
 		'console_scripts': ['auto_montage=auto_montage.__main__:main'],
