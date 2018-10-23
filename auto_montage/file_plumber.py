@@ -62,8 +62,8 @@ class FilePlumber:
 
         # Assumes starting locations are
         # row 12, col 2 and row 12, col 10
-        movie_num_loc = 13, 1
-        movie_location = 13, 2
+        movie_num_loc = 13, 0
+        movie_location = 13, 1
         nominal_dictionary = {}
         still_movies = True
         while still_movies:
