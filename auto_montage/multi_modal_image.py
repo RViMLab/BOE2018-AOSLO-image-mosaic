@@ -2,21 +2,17 @@ from . import utils
 from . import features
 
 import numpy as np
-import matplotlib.pyplot as plt
-import cv2
+
 
 class MultiModalImage:
-    """
-        Interface for accessing data which has been linked
-        with the appropriate channels and nominal position
-    """
     index = {'split':0, 'confocal':1, 'avg':2}
 
-    def __init__(self, confocal, split, avg, nominal_position):
+    def __init__(self, confocal, split, avg, nominal_position, fov):
         """
             store names, nominal position and images as a single
             numpy tensor [height, width, channel]
         """
+        self.fov = fov
         self.split_fname = split
         self.confocal_fname = confocal
         self.avg_fname = avg
@@ -60,6 +56,8 @@ class MultiModalImage:
         elif mntge_type == 'avg':
             src_img = self.get_avg()
             src_name = self.get_avg_name()
+        else:
+            raise ValueError('No type named {}'.format(mntge_type))
         return src_img, src_name
 
     def calculate_orb(self,):

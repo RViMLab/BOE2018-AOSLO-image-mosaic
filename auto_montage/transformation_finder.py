@@ -79,7 +79,6 @@ class TransformationFinder:
             closest_to[src] = dsts
         return closest_to
 
-
     def compute_kps_desc(self,):
         for mm in self.mmList:
             mm.calculate_orb()
@@ -131,7 +130,7 @@ class TransformationFinder:
     def get_inliers(self, i, j):
         return self.inlier_matches[i,j]
 
-    def compute_pairwise_registrations(self,):
+    def compute_pairwise_registrations(self, q, i, fov):
         matched = np.ones([self._num, 1], dtype=np.int32)*TransformationFinder.UNMATCHED
 
         # while anything is still unmatched
@@ -158,7 +157,8 @@ class TransformationFinder:
                     num_matched = np.sum(matched!=TransformationFinder.UNMATCHED)
                     if num_matched > total_matched:
                         total_matched = num_matched
-                        utils.printProgressBar(total_matched, self._num)
+                        q.put((num_matched, self._num, i, fov))
+                        #utils.printProgressBar(total_matched, self._num)
 
                     # if this is already matched skip
                     if matched[src_mm] != TransformationFinder.UNMATCHED:
@@ -167,15 +167,12 @@ class TransformationFinder:
                     most_inliers = 0
                     best_dst_id = -1
 
-                    
                     # search through possible destination images
                     for dst_mm in self.closest_mm_images[src_mm]:
-                        
 
                         # if images are same, or the dstination hasnt been matched
                         if (dst_mm==src_mm) or (matched[dst_mm]==TransformationFinder.UNMATCHED):
                             continue
-
                         
                         # if we havent calculated everything already
                         if not self.have_computed[src_mm, dst_mm]:
