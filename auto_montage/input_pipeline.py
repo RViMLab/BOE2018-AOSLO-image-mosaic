@@ -203,14 +203,24 @@ class InputPipeline:
 
     def as_multi_modal_objects(self, ):
         mm_dict = {}
+
+        min_fov = min(list(self.triples_by_fov.keys()))
         for fov in self.triples_by_fov:
+            if min_fov == fov:
+                resize = None
+            else:
+                resize = fov / min_fov
             mm_dict[fov] = [
                 multi_modal_image.MultiModalImage(
                     triple['confocal'],
                     triple['split'],
                     triple['avg'],
                     triple['nominal'],
-                    fov)
+                    fov,
+                    resize)
                 for triple in self.triples_by_fov[fov]
             ]
-        return mm_dict
+        mms = [ x for sublist in mm_dict.values() for x in sublist]
+        mms_dict = {}
+        mms_dict[min_fov] = mms
+        return mms_dict

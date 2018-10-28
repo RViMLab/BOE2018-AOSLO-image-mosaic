@@ -7,7 +7,7 @@ import numpy as np
 class MultiModalImage:
     index = {'split':0, 'confocal':1, 'avg':2}
 
-    def __init__(self, confocal, split, avg, nominal_position, fov):
+    def __init__(self, confocal, split, avg, nominal_position, fov, resize):
         """
             store names, nominal position and images as a single
             numpy tensor [height, width, channel]
@@ -16,9 +16,9 @@ class MultiModalImage:
         self.split_fname = split
         self.confocal_fname = confocal
         self.avg_fname = avg
-        split = utils.load_from_fname(split)
-        confocal = utils.load_from_fname(confocal)
-        avg = utils.load_from_fname(avg)
+        split = utils.load_from_fname(split, resize)
+        confocal = utils.load_from_fname(confocal, resize)
+        avg = utils.load_from_fname(avg, resize)
         self.multimodal_im = np.stack([split, confocal, avg], axis=2)
         self.nominal_position = nominal_position
 

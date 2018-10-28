@@ -1,7 +1,9 @@
 from PIL import Image
 import numpy as np
+import cv2
 
-def load_from_fname(fname):
+
+def load_from_fname(fname, resize):
     """
         loads image and gets rid of any extra unused dimensions
         as they smeetimes save as rgb accidently
@@ -10,6 +12,10 @@ def load_from_fname(fname):
     if len(im.split()) > 1:
         im = im.split()[0]
     im = np.array(im.getdata(), dtype = np.uint8).reshape(im.size[1], im.size[0])
+    if resize is not None:
+        h = int(im.shape[0] * resize)
+        w = int(im.shape[1] * resize)
+        im = cv2.resize(im, (w, h))
     return im
 
 # Print iterations progress
