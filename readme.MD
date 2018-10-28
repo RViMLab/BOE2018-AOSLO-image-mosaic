@@ -43,8 +43,7 @@ auto_montage
 ## Features
 * Super fast!
 * Will output photoshop .jsx scripts which should be run from photoshop
-* Creates multiple FOV montages from a single collection of images
-
+* Will put multiple FOV images into a single montage, after appropriately resizing
 ## To Use
 * Enter movie numbers, movie nominal positions, and movie fovs into an .xlsx (excell) file as in the provided template
 * Run the tool from the command line
