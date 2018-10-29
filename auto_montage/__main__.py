@@ -1,5 +1,10 @@
 from . import gui
 
-if __name__ == '__main__':
+
+def main():
     g = gui.GUI()
     g.root.mainloop()
+
+
+if __name__ == '__main__':
+   main()
