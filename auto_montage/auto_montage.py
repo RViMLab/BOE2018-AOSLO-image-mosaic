@@ -10,7 +10,7 @@ from time import time
 import sys
 
 
-def montage(directory, nominal, eye, naming, photoshop_directory, q, e):
+def main(directory, nominal, eye, naming, photoshop_directory, q, e):
 
     print(directory)
     alg_start = time()

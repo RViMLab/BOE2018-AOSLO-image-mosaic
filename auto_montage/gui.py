@@ -104,7 +104,7 @@ class GUI:
     def start_montage(self, directory, nominal, eye, naming, photoshop_directory):
         q = queue.Queue()
         e = Event()
-        t = Thread(target=auto_montage.montage, args=(directory, nominal, eye, naming, photoshop_directory, q, e))
+        t = Thread(target=auto_montage.main, args=(directory, nominal, eye, naming, photoshop_directory, q, e))
         t.start()
 
         self.monitor_montage(q, e)
