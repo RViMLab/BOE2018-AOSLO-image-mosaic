@@ -20,7 +20,7 @@ var SPLIT = 1
 var CONF = 2
 var names = ["avg", "split_det", "confocal"]
 
-function addLinkedImage(confocal_fname, dx, dy, doc) {
+function addLinkedImage(confocal_fname, dx, dy, h, w, doc) {
 	
 	var docRef = docs[doc]
 	var split_fname = confocal_fname.replace(names[CONF], names[SPLIT])
@@ -33,9 +33,11 @@ function addLinkedImage(confocal_fname, dx, dy, doc) {
 		// open new document with just the image so we can duplicate to montage
 		var img = new File(file_names[imageType]);
 		var opened = open(img);
+		opened.resizeImage(w, h)
+        opened.resizeCanvas(w, h)
 		var pSourceDocument = app.activeDocument;
 		pSourceDocument.artLayers[0].duplicate(docRef);
-		pSourceDocument.close()
+		pSourceDocument.close(SaveOptions.DONOTSAVECHANGES)
 		
 		// get the layer in the montage document
 		var layerInOrig = docRef.artLayers[0]
@@ -72,7 +74,9 @@ for (var disjoint = 0; disjoint<docs.length; disjoint++){
 		var confocal_name = d[0]
 		var ty = d[1]
 		var tx = d[2]
-		addLinkedImage(confocal_name, ty, tx, disjoint)
+		var h = d[3]
+		var w = d[4]
+		addLinkedImage(confocal_name, ty, tx, h, w, disjoint)
 	}
 	docs[disjoint].revealAll()
 }
@@ -91,7 +95,6 @@ split.name = "split_det"
 var avg = docRef.layerSets.add()
 avg.name = "avg"
 """
-    return script_js
 
 
 def create_doc(doc):
@@ -119,7 +122,7 @@ def create_transformations(jsfile, disjoint_montage):
                 str([
                     confocal_name,
                     float(ty) + (width - global_width) / 2.,
-                    float(tx) + (height - global_height) / 2.]))
+                    float(tx) + (height - global_height) / 2., height, width]))
 
         data = ','.join(trans_for_join)
         jsfile.write(data)

@@ -46,3 +46,4 @@ def main(directory, nominal, eye, naming, photoshop_directory, q, e):
         script_maker.write_photoshop_script(transformations, photoshop_directory, name=name)
     e.set()
     print('Total time taken {}'.format(time() - alg_start))
+    # todo clean up temp
