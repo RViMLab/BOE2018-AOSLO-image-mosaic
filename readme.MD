@@ -30,7 +30,7 @@ To install and use requires:
 ### Installing
 1. Download the git repository to a folder of your choice, /path/to/code/autoMontager
 
-2. Install Python package using pip. Ubuntu: ```pip install /path/to/code/autoMontager```; Windows```python -m pip install /path/to/code/ConeDetector```
+2. Install Python package using pip. Ubuntu: ```pip install /path/to/code/autoMontager```; Windows```python -m pip install /path/to/code/autoMontager```
 
 ### Using
 
